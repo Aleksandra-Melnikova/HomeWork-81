@@ -1,7 +1,7 @@
-export interface Link {
+export interface LinkType {
     id: string;
     originalUrl: string;
     shortUrl: string;
 }
 
-export type LinkWithoutId = Omit<Link, 'id'>
+export type LinkWithoutId = Omit<LinkType , 'id'>
