@@ -2,7 +2,7 @@ export interface LinkForm {
   originalUrl: string;
 }
 
-export interface Link {
+export interface LinkType {
   id: string;
   originalUrl: string;
   shortUrl: string;

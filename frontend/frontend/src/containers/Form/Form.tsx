@@ -1,12 +1,13 @@
-
-
 import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
-import { LinkForm } from '../../types';
-import { selectAddLoading, selectLinks } from '../../store/slices/linksSlice.ts';
-import { createShortLink } from '../../store/thunks/linksThunk.ts';
-import { toast } from 'react-toastify';
-import ButtonLoading from '../../components/UI/ButtonLoading/ButtonLoading.tsx';
+import { LinkForm } from "../../types";
+import {
+  selectAddLoading,
+  selectLinks,
+} from "../../store/slices/linksSlice.ts";
+import { createShortLink } from "../../store/thunks/linksThunk.ts";
+import { toast } from "react-toastify";
+import ButtonLoading from "../../components/UI/ButtonLoading/ButtonLoading.tsx";
 
 const Form = () => {
   const [form, setForm] = useState<LinkForm>({
@@ -15,7 +16,6 @@ const Form = () => {
   const createAddLoading = useAppSelector(selectAddLoading);
   const dispatch = useAppDispatch();
   const links = useAppSelector(selectLinks);
-  console.log(links);
 
   const changeForm = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -39,8 +39,11 @@ const Form = () => {
 
   return (
     <div className="container mt-5 mb-5">
-      <form className="mx-auto w-75" onSubmit={(e) => generateShortUrl(e, form)}>
-        <h3 className="my-4"> Shorten your link!</h3>
+      <form
+        className="mx-auto w-50"
+        onSubmit={(e) => generateShortUrl(e, form)}
+      >
+        <h3 className="my-4 text-center"> Shorten your link!</h3>
         <div className="d-flex  mb-2">
           <input
             required
@@ -52,8 +55,7 @@ const Form = () => {
           />
         </div>
 
-
-        <div className="d-flex">
+        <div className="d-flex justify-content-center align-items-center mt-4">
           <ButtonLoading
             text={"Shorten"}
             isLoading={createAddLoading}
@@ -61,7 +63,23 @@ const Form = () => {
           />
         </div>
       </form>
-      {links ? <a href={links.originalUrl}> {links.shortUrl}</a>: null}
+      <>
+        {" "}
+        {links ? (
+          <>
+            <strong className={"text-center mt-4 mb-4 d-block"}>
+              Your link now looks like this
+            </strong>
+            <a
+              className={"d-block text-center"}
+              href={`http://localhost:8000/${links.shortUrl}`}
+            >
+              {" "}
+              {`http://localhost:8000/${links.shortUrl}`}
+            </a>
+          </>
+        ) : null}
+      </>
     </div>
   );
 };
